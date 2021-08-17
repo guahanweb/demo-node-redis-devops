@@ -31,7 +31,7 @@ services:
       # expose api on port 4000
       - "4000:3000"
     volumes:
-      - ../backed/app:/app
+      - ../backend/app:/app
     environment:
       - PORT=3000
       - REDIS_ENDPOINT=redis://redis:6379
@@ -44,8 +44,9 @@ services:
       dockerfile: Dockerfile
     restart: on-failure
     volumes:
-      - ../frontend/src:/app/src
-      - ../frontend/public:/app/public
+      - ../frontend/app/src:/app/src
+      - ../frontend/app/public:/app/public
+      - ../frontend/app/tsconfig.json:/app/tsconfig.json
     command: npm start
     ports:
       # exposse ui on port 3000
