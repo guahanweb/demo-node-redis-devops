@@ -7,6 +7,22 @@ services:
       # expose redis to machine for debugging
       - "6379:6379"
 
+  observer:
+    build:
+      context: ../observer
+      dockerfile: Dockerfile
+    depends_on:
+      - redis
+    command: npm run start:dev
+    ports:
+      # expose observer on port 5000
+      - "5000:3000"
+    volumes:
+      - ../observer/app:/app
+    environment:
+      - PORT=3000
+      - REDIS_ENDPOINT=redis://redis:6379
+
   backend:
     build:
       context: ../backend
